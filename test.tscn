@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://blr6u3lp32nxf"]
+
+[ext_resource type="Texture2D" uid="uid://c0cfrw4hr7aa3" path="res://icon.svg" id="1_6uqi0"]
+[ext_resource type="Texture2D" uid="uid://cbx73bna1im47" path="res://octopus.jpg" id="2_ppyta"]
+[ext_resource type="Texture2D" uid="uid://baptrn8aop1yg" path="res://Rectangle 88.png" id="3_ykrsh"]
+
+[node name="Node2D" type="Node2D" unique_id=586726293]
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1787934140]
+position = Vector2(547, 46)
+texture = ExtResource("1_6uqi0")
+
+[node name="Octopus" type="Sprite2D" parent="." unique_id=1478245353]
+position = Vector2(671, 799)
+texture = ExtResource("2_ppyta")
+
+[node name="Rectangle88" type="Sprite2D" parent="." unique_id=237307836]
+position = Vector2(2155, -189)
+texture = ExtResource("3_ykrsh")
