@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://cg7r8hmucetup"]
+
+[ext_resource type="PackedScene" path="res://monochrome.tscn" id="2_effect"]
+[ext_resource type="Texture2D" uid="uid://cbx73bna1im47" path="res://octopus.jpg" id="3_photo"]
+[ext_resource type="Texture2D" uid="uid://baptrn8aop1yg" path="res://Rectangle 88.png" id="4_poster"]
+[ext_resource type="Texture2D" uid="uid://c0cfrw4hr7aa3" path="res://icon.svg" id="5_icon"]
+
+[sub_resource type="Theme" id="Theme_demo"]
+default_font_size = 18
+
+[sub_resource type="GDScript" id="GDScript_7ijqt"]
+script/source = "extends Control
+
+@onready var screen_material: ShaderMaterial = $Monochrome/Screen.material
+@onready var toggle: CheckButton = $Margin/Layout/Controls/Toggle
+@onready var strength_slider: HSlider = $Margin/Layout/Controls/Strength
+@onready var strength_label: Label = $Margin/Layout/Controls/Value
+
+
+func _ready() -> void:
+	toggle.toggled.connect(_on_toggle_toggled)
+	strength_slider.value_changed.connect(_on_strength_changed)
+	_on_strength_changed(strength_slider.value)
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.physical_keycode == KEY_M:
+			strength_slider.value = 0.0 if toggle.button_pressed else 1.0
+			get_viewport().set_input_as_handled()
+
+
+func _on_toggle_toggled(enabled: bool) -> void:
+	strength_slider.value = 1.0 if enabled else 0.0
+
+
+func _on_strength_changed(value: float) -> void:
+	screen_material.set_shader_parameter(\"strength\", value)
+	strength_label.text = \"%d %%\" % roundi(value * 100.0)
+	toggle.set_pressed_no_signal(value > 0.0)
+	toggle.text = \"Монохром включён\" if value > 0.0 else \"Исходные цвета\"
+"
+
+[sub_resource type="Gradient" id="Gradient_spectrum"]
+offsets = PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture_spectrum"]
+gradient = SubResource("Gradient_spectrum")
+width = 1024
+
+[node name="MonochromeTest" type="Control" unique_id=983630953]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_demo")
+script = SubResource("GDScript_7ijqt")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1911683397]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.06, 0.08, 0.13, 1)
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=388869036]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="VBoxContainer" parent="Margin" unique_id=1984869305]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Margin/Layout" unique_id=437658790]
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "МОНОХРОМ / ТЕСТ ШЕЙДЕРА"
+
+[node name="Description" type="Label" parent="Margin/Layout" unique_id=891406794]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.9, 1)
+text = "Один экранный эффект: объекты, текстуры и интерфейс становятся оттенками серого."
+autowrap_mode = 2
+
+[node name="Controls" type="HBoxContainer" parent="Margin/Layout" unique_id=916112675]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Toggle" type="CheckButton" parent="Margin/Layout/Controls" unique_id=1777397859]
+custom_minimum_size = Vector2(270, 42)
+layout_mode = 2
+button_pressed = true
+text = "Монохром включён"
+
+[node name="Caption" type="Label" parent="Margin/Layout/Controls" unique_id=1950691658]
+layout_mode = 2
+text = "Сила эффекта"
+
+[node name="Strength" type="HSlider" parent="Margin/Layout/Controls" unique_id=1710125004]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="Margin/Layout/Controls" unique_id=2026848136]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "100 %"
+horizontal_alignment = 2
+
+[node name="PaletteTitle" type="Label" parent="Margin/Layout" unique_id=1653845394]
+layout_mode = 2
+text = "Цветные объекты — разная яркость, никакого цвета"
+
+[node name="Palette" type="HBoxContainer" parent="Margin/Layout" unique_id=1598314581]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Red" type="ColorRect" parent="Margin/Layout/Palette" unique_id=950076076]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Green" type="ColorRect" parent="Margin/Layout/Palette" unique_id=211464108]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Blue" type="ColorRect" parent="Margin/Layout/Palette" unique_id=27304271]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0, 0, 1, 1)
+
+[node name="Yellow" type="ColorRect" parent="Margin/Layout/Palette" unique_id=879973774]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Cyan" type="ColorRect" parent="Margin/Layout/Palette" unique_id=1193863729]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0, 1, 1, 1)
+
+[node name="Magenta" type="ColorRect" parent="Margin/Layout/Palette" unique_id=1368071975]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(1, 0, 1, 1)
+
+[node name="White" type="ColorRect" parent="Margin/Layout/Palette" unique_id=1001089050]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Black" type="ColorRect" parent="Margin/Layout/Palette" unique_id=1279025126]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Spectrum" type="TextureRect" parent="Margin/Layout" unique_id=262068946]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture_spectrum")
+expand_mode = 1
+
+[node name="Samples" type="HBoxContainer" parent="Margin/Layout" unique_id=1933513927]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 22
+
+[node name="Photo" type="VBoxContainer" parent="Margin/Layout/Samples" unique_id=444274787]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Caption" type="Label" parent="Margin/Layout/Samples/Photo" unique_id=1542031737]
+layout_mode = 2
+text = "ФОТОГРАФИЯ"
+
+[node name="Texture" type="TextureRect" parent="Margin/Layout/Samples/Photo" unique_id=1720376392]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("3_photo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Poster" type="VBoxContainer" parent="Margin/Layout/Samples" unique_id=1719932350]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Caption" type="Label" parent="Margin/Layout/Samples/Poster" unique_id=1260546779]
+layout_mode = 2
+text = "ИЛЛЮСТРАЦИЯ"
+
+[node name="Texture" type="TextureRect" parent="Margin/Layout/Samples/Poster" unique_id=838878305]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("4_poster")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="VBoxContainer" parent="Margin/Layout/Samples" unique_id=55572895]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Caption" type="Label" parent="Margin/Layout/Samples/Icon" unique_id=686764755]
+layout_mode = 2
+text = "ИКОНКА / SVG"
+
+[node name="Texture" type="TextureRect" parent="Margin/Layout/Samples/Icon" unique_id=1755560210]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("5_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Hint" type="Label" parent="Margin/Layout" unique_id=2029518085]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.9, 1)
+text = "M — цвет / монохром. Ползунок: 0 % — оригинал, 100 % — полностью чёрно-белое изображение."
+autowrap_mode = 2
+
+[node name="Monochrome" parent="." unique_id=141520776 instance=ExtResource("2_effect")]
