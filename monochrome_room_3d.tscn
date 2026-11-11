@@ -2,7 +2,14 @@
 
 [ext_resource type="Script" uid="uid://q8ird123bthi" path="res://monochrome_room_3d.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://monochrome.tscn" id="2_effect"]
-[ext_resource type="PackedScene" uid="uid://cbkxk1omt4bcb" path="res://models/Untitled.glb" id="3_n0pix"]
+
+[sub_resource type="Environment" id="Environment_room"]
+background_mode = 1
+background_color = Color(0.12, 0.15, 0.2, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.85, 0.9, 1, 1)
+ambient_light_energy = 0.65
+reflected_light_source = 2
 
 [sub_resource type="StandardMaterial3D" id="Material_floor"]
 albedo_color = Color(0.38, 0.42, 0.48, 1)
@@ -63,6 +70,9 @@ radius = 0.3
 height = 1.8
 
 [node name="MonochromeRoom3D" type="Node3D" unique_id=1750637764]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1533466040]
+environment = SubResource("Environment_room")
 
 [node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=740986353]
 transform = Transform3D(0.8525245, 0.45339105, -0.26007405, 0, 0.49757108, 0.8674232, 0.52268726, -0.7394995, 0.42419153, 0, 0, 0)
@@ -439,6 +449,3 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Monochrome" parent="Player" unique_id=1238089211 instance=ExtResource("2_effect")]
-
-[node name="Untitled" parent="." unique_id=3393604 instance=ExtResource("3_n0pix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65480435, 0)
