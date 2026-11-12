@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 signal world_lighting_toggle_requested
 
-@onready var camera: Camera3D = $Camera3D
+@onready var camera: Camera3D = $Camera3D #11
 @onready var spawn_transform: Transform3D = transform
 @onready var spawn_pitch: float = camera.rotation.x
 @onready var screen_material: ShaderMaterial = $Monochrome/Screen.material
