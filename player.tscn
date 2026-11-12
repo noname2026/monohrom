@@ -21,7 +21,7 @@ fov = 78.0
 far = 80.0
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" unique_id=1101137445]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11970246, -0.67081845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16, 0)
 light_energy = 10.0
 shadow_enabled = true
 shadow_bias = 0.5
