@@ -1,22 +1,139 @@
 [gd_scene format=3 uid="uid://c4qsyetcwiolm"]
 
+<<<<<<< HEAD
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+=======
+[ext_resource type="Script" uid="uid://bnylf2mn2pakc" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" path="res://monochrome.tscn" id="2_i3pqv"]
+>>>>>>> 42738a443376cce929d5bc766e4bf51e62ba26e1
 
-[node name="Node3D" type="Node3D" unique_id=1663923533]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqtel"]
+radius = 0.3
+height = 1.8
 
+<<<<<<< HEAD
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1542317111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2192118, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=482785947]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72712225, 0)
 shape = SubResource("CapsuleShape3D_onrkg")
+=======
+[node name="Player" type="CharacterBody3D" unique_id=1177129271]
+script = ExtResource("1_onrkg")
 
-[node name="Node3D" type="Node3D" parent="CharacterBody3D" unique_id=1679889890]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=236057313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.042249, 0)
+shape = SubResource("CapsuleShape3D_hqtel")
+>>>>>>> 42738a443376cce929d5bc766e4bf51e62ba26e1
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Node3D" unique_id=232126951]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1153432726]
+transform = Transform3D(1, 0, 0, 0, 0.99820054, 0.059964005, 0, -0.059964005, 0.99820054, 0, 1.7864258, 0)
 current = true
+fov = 78.0
+far = 80.0
 
-[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/Node3D" unique_id=874174037]
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" unique_id=1101137445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16, 0)
+light_energy = 10.0
+shadow_enabled = true
+shadow_bias = 0.5
+spot_range = 18.0
+spot_attenuation = 2.0
+spot_angle = 24.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="CharacterBody3D/Node3D" unique_id=1009090165]
-spot_angle = 22.54275
+[node name="HUD" type="CanvasLayer" parent="." unique_id=347572807]
+layer = 10
+
+[node name="TopBackground" type="ColorRect" parent="HUD" unique_id=509977088]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 145.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.035, 0.045, 0.065, 0.88)
+
+[node name="Top" type="MarginContainer" parent="HUD" unique_id=466411296]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+
+[node name="Layout" type="VBoxContainer" parent="HUD/Top" unique_id=669942014]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="HUD/Top/Layout" unique_id=181858121]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "ТЕСТОВАЯ КОМНАТА / 3D"
+
+[node name="Description" type="Label" parent="HUD/Top/Layout" unique_id=2029622926]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Шесть цветных фигур, объёмный свет и один полноэкранный шейдер."
+
+[node name="Controls" type="HBoxContainer" parent="HUD/Top/Layout" unique_id=883219073]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Toggle" type="CheckButton" parent="HUD/Top/Layout/Controls" unique_id=167440141]
+custom_minimum_size = Vector2(255, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+button_pressed = true
+text = "Монохром включён"
+
+[node name="Caption" type="Label" parent="HUD/Top/Layout/Controls" unique_id=640012674]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Сила эффекта"
+
+[node name="Strength" type="HSlider" parent="HUD/Top/Layout/Controls" unique_id=1067804182]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="HUD/Top/Layout/Controls" unique_id=1315177042]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "100 %"
+horizontal_alignment = 2
+
+[node name="BottomBackground" type="ColorRect" parent="HUD" unique_id=1377013640]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.035, 0.045, 0.065, 0.88)
+
+[node name="Hint" type="Label" parent="HUD" unique_id=2101522211]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -52.0
+offset_right = -24.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 17
+text = "WASD — ходить   |   Мышь — осмотр   |   Shift — курсор / UI   |   M — монохром   |   G — свет мира   |   R — в начало"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Monochrome" parent="." unique_id=296753563 instance=ExtResource("2_i3pqv")]
