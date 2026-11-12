@@ -1,16 +1,22 @@
-[gd_scene format=3 uid="uid://c4qsyetcwiolm"]
+[gd_scene format=3 uid="uid://pf4fsc3ni4qs"]
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
 =======
 [ext_resource type="Script" uid="uid://bnylf2mn2pakc" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="PackedScene" path="res://monochrome.tscn" id="2_i3pqv"]
 >>>>>>> 42738a443376cce929d5bc766e4bf51e62ba26e1
+=======
+[ext_resource type="Script" uid="uid://bnylf2mn2pakc" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" path="res://monochrome.tscn" id="2_i3pqv"]
+>>>>>>> parent of 2fa23f9 (.)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqtel"]
 radius = 0.3
 height = 1.8
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1542317111]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2192118, 0)
@@ -27,6 +33,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.042249, 0)
 shape = SubResource("CapsuleShape3D_hqtel")
 >>>>>>> 42738a443376cce929d5bc766e4bf51e62ba26e1
 
+=======
+[node name="Player" type="CharacterBody3D" unique_id=1177129271]
+script = ExtResource("1_onrkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=236057313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.042249, 0)
+shape = SubResource("CapsuleShape3D_hqtel")
+
+>>>>>>> parent of 2fa23f9 (.)
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1153432726]
 transform = Transform3D(1, 0, 0, 0, 0.99820054, 0.059964005, 0, -0.059964005, 0.99820054, 0, 1.7864258, 0)
 current = true
@@ -34,7 +49,11 @@ fov = 78.0
 far = 80.0
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" unique_id=1101137445]
+<<<<<<< HEAD
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16, 0)
+=======
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11970246, -0.67081845)
+>>>>>>> parent of 2fa23f9 (.)
 light_energy = 10.0
 shadow_enabled = true
 shadow_bias = 0.5
