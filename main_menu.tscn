@@ -1,0 +1,774 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_main"]
+[ext_resource type="Script" path="res://menu_background.gd" id="2_bg"]
+[ext_resource type="Script" path="res://menu_scope.gd" id="3_scope"]
+[ext_resource type="Shader" path="res://crt_overlay.gdshader" id="4_crt"]
+
+[sub_resource type="SystemFont" id="SystemFont_mono"]
+font_names = PackedStringArray("Cascadia Mono", "Consolas", "Courier New", "Liberation Mono")
+font_weight = 400
+
+[sub_resource type="SystemFont" id="SystemFont_title"]
+font_names = PackedStringArray("Bahnschrift", "Arial Narrow", "Arial Black", "Arial")
+font_weight = 700
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.014, 0.021, 0.019, 0.74)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.42, 0.49, 0.44, 0.32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_btn_normal"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.035, 0.045, 0.042, 0.55)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.54, 0.49, 0.24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_btn_hover"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.23, 0.055, 0.05, 0.60)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.78, 0.19, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_btn_pressed"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.36, 0.07, 0.06, 0.82)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88, 0.24, 0.19, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_btn_focus"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.78, 0.80, 0.73, 0.35)
+
+[sub_resource type="Theme" id="Theme_menu"]
+default_font = SubResource("SystemFont_mono")
+default_font_size = 18
+Button/colors/font_color = Color(0.72, 0.74, 0.69, 1)
+Button/colors/font_focus_color = Color(0.98, 0.97, 0.92, 1)
+Button/colors/font_hover_color = Color(0.98, 0.97, 0.92, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 20
+Button/styles/focus = SubResource("StyleBox_btn_focus")
+Button/styles/hover = SubResource("StyleBox_btn_hover")
+Button/styles/normal = SubResource("StyleBox_btn_normal")
+Button/styles/pressed = SubResource("StyleBox_btn_pressed")
+CheckButton/colors/font_color = Color(0.66, 0.69, 0.64, 1)
+CheckButton/colors/font_focus_color = Color(0.98, 0.97, 0.92, 1)
+CheckButton/colors/font_hover_color = Color(0.98, 0.97, 0.92, 1)
+CheckButton/colors/font_pressed_color = Color(0.98, 0.97, 0.92, 1)
+CheckButton/font_sizes/font_size = 19
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crt"]
+shader = ExtResource("4_crt")
+shader_parameter/noise_amount = 0.045
+shader_parameter/scanline_amount = 0.075
+shader_parameter/vignette_amount = 0.55
+shader_parameter/glitch = 0.0
+shader_parameter/aberration = 0.6
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_menu")
+script = ExtResource("1_main")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_bg")
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Watermark" type="Label" parent="Interface"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -760.0
+offset_top = 36.0
+offset_right = -52.0
+offset_bottom = 420.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.78, 0.81, 0.75, 0.028)
+theme_override_fonts/font = SubResource("SystemFont_title")
+theme_override_font_sizes/font_size = 348
+text = "04"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="Interface"]
+layout_mode = 1
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 64.0
+offset_right = 720.0
+offset_bottom = -64.0
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="ObjectLabel" type="Label" parent="Interface/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.52, 0.47, 1)
+theme_override_font_sizes/font_size = 16
+text = "ОБЪЕКТ 07  //  ЭНЕРГОБЛОК №4  //  СМЕНА 04"
+
+[node name="Rule" type="ColorRect" parent="Interface/Left"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.42, 0.48, 0.43, 0.35)
+
+[node name="Title" type="RichTextLabel" parent="Interface/Left"]
+custom_minimum_size = Vector2(620, 120)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.86, 0.85, 0.80, 1)
+theme_override_constants/line_separation = -4
+theme_override_fonts/normal_font = SubResource("SystemFont_title")
+theme_override_font_sizes/normal_font_size = 112
+bbcode_enabled = true
+text = "[color=#d9d6cc]МОНО[/color][color=#b3453b]ХРОМ[/color]"
+fit_content = true
+scroll_active = false
+
+[node name="Subtitle" type="Label" parent="Interface/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.60, 0.63, 0.58, 1)
+theme_override_font_sizes/font_size = 19
+text = "ХРОНИКА ЧЕТВЁРТОГО ЭНЕРГОБЛОКА"
+
+[node name="Tagline" type="Label" parent="Interface/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.40, 0.43, 0.39, 1)
+theme_override_font_sizes/font_size = 14
+text = "ТЫ ЗАСТУПИЛ НА СМЕНУ. СМЕНА НЕ ЗАСТУПИЛА НА ТЕБЯ."
+
+[node name="MenuSpacer" type="Control" parent="Interface/Left"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Menu" type="VBoxContainer" parent="Interface/Left"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StartButton" type="Button" parent="Interface/Left/Menu"]
+custom_minimum_size = Vector2(520, 62)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../SettingsButton")
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 25
+text = "01    НАЧАТЬ СМЕНУ"
+alignment = 0
+
+[node name="SettingsButton" type="Button" parent="Interface/Left/Menu"]
+custom_minimum_size = Vector2(520, 62)
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../ArchiveButton")
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 25
+text = "02    ПРОТОКОЛЫ"
+alignment = 0
+
+[node name="ArchiveButton" type="Button" parent="Interface/Left/Menu"]
+custom_minimum_size = Vector2(520, 62)
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 25
+text = "03    АРХИВ ОБЪЕКТА"
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="Interface/Left/Menu"]
+custom_minimum_size = Vector2(520, 62)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ArchiveButton")
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 25
+text = "04    ПОКИНУТЬ ОБЪЕКТ"
+alignment = 0
+
+[node name="Spring" type="Control" parent="Interface/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="StatusRow" type="HBoxContainer" parent="Interface/Left"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatusDot" type="ColorRect" parent="Interface/Left/StatusRow"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.72, 0.19, 0.16, 1)
+
+[node name="StatusLabel" type="Label" parent="Interface/Left/StatusRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.48, 0.44, 1)
+theme_override_font_sizes/font_size = 14
+text = "КАНАЛ СВЯЗИ: НЕСТАБИЛЕН  //  ДОЗИМЕТР: АКТИВЕН"
+
+[node name="Clock" type="Label" parent="Interface/Left"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.53, 1)
+theme_override_font_sizes/font_size = 15
+text = "СМЕНА 04  //  03:47:12"
+
+[node name="TopRight" type="HBoxContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -560.0
+offset_top = 64.0
+offset_right = -100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+alignment = 2
+theme_override_constants/separation = 10
+
+[node name="RecDot" type="ColorRect" parent="Interface/TopRight"]
+custom_minimum_size = Vector2(9, 9)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.72, 0.19, 0.16, 1)
+
+[node name="RecLabel" type="Label" parent="Interface/TopRight"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.19, 0.16, 1)
+theme_override_font_sizes/font_size = 15
+text = "REC"
+
+[node name="CamLabel" type="Label" parent="Interface/TopRight"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.52, 0.48, 1)
+theme_override_font_sizes/font_size = 15
+text = "//  CAM-04  //  -3 ЭТАЖ"
+
+[node name="RightPanel" type="PanelContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -480.0
+offset_right = -100.0
+offset_bottom = -96.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="Content" type="VBoxContainer" parent="Interface/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelTitle" type="Label" parent="Interface/RightPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.79, 0.73, 1)
+theme_override_font_sizes/font_size = 16
+text = "СОСТОЯНИЕ РЕАКТОРА"
+
+[node name="Separator" type="HSeparator" parent="Interface/RightPanel/Content"]
+layout_mode = 2
+
+[node name="Readouts" type="GridContainer" parent="Interface/RightPanel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="TemperatureCaption" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.51, 0.47, 1)
+theme_override_font_sizes/font_size = 15
+text = "ТЕПЛОНОСИТЕЛЬ"
+
+[node name="TemperatureValue" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.83, 0.84, 0.78, 1)
+theme_override_font_sizes/font_size = 16
+text = "297.4 °C"
+horizontal_alignment = 2
+
+[node name="PressureCaption" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.51, 0.47, 1)
+theme_override_font_sizes/font_size = 15
+text = "ДАВЛЕНИЕ"
+
+[node name="PressureValue" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.83, 0.84, 0.78, 1)
+theme_override_font_sizes/font_size = 16
+text = "15.9 МПа"
+horizontal_alignment = 2
+
+[node name="RadiationCaption" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.51, 0.47, 1)
+theme_override_font_sizes/font_size = 15
+text = "РАДИАЦИЯ"
+
+[node name="RadiationValue" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.78, 0.32, 0.27, 1)
+theme_override_font_sizes/font_size = 16
+text = "3.58 мЗв/ч"
+horizontal_alignment = 2
+
+[node name="PersonnelCaption" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.51, 0.47, 1)
+theme_override_font_sizes/font_size = 15
+text = "ПЕРСОНАЛ"
+
+[node name="PersonnelValue" type="Label" parent="Interface/RightPanel/Content/Readouts"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.83, 0.84, 0.78, 1)
+theme_override_font_sizes/font_size = 16
+text = "1 / 36"
+horizontal_alignment = 2
+
+[node name="Scope" type="Control" parent="Interface/RightPanel/Content"]
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("3_scope")
+
+[node name="Footer" type="Label" parent="Interface/RightPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36, 0.40, 0.36, 1)
+theme_override_font_sizes/font_size = 12
+text = "RBMK-1000  //  КОНТУР 4  //  ДАТЧИКИ В НОРМЕ?"
+
+[node name="BottomRight" type="Label" parent="Interface"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -58.0
+offset_right = -100.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.36, 0.40, 0.36, 1)
+theme_override_font_sizes/font_size = 12
+text = "v0.4.7  //  ПРОТОКОЛ 07  //  НЕ ОТКРЫВАЙТЕ ШЛЮЗ 4"
+horizontal_alignment = 2
+
+[node name="SettingsPanel" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.007, 0.006, 0.88)
+
+[node name="Center" type="CenterContainer" parent="SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="SettingsPanel/Center"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="Content" type="VBoxContainer" parent="SettingsPanel/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.87, 0.81, 1)
+theme_override_font_sizes/font_size = 30
+text = "ПРОТОКОЛЫ  //  НАСТРОЙКИ"
+
+[node name="Subtitle" type="Label" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.48, 0.44, 1)
+theme_override_font_sizes/font_size = 13
+text = "ТЕРМИНАЛ ОПЕРАТОРА 04  //  ИЗМЕНЕНИЯ СОХРАНЯЮТСЯ АВТОМАТИЧЕСКИ"
+
+[node name="Separator" type="HSeparator" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="MonoCaption" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.67, 0.62, 1)
+theme_override_font_sizes/font_size = 18
+text = "МОНОХРОМ"
+
+[node name="MonoSlider" type="HSlider" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(440, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MonoValue" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.80, 0.82, 0.76, 1)
+theme_override_font_sizes/font_size = 18
+text = "100 %"
+horizontal_alignment = 2
+
+[node name="VolumeCaption" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.67, 0.62, 1)
+theme_override_font_sizes/font_size = 18
+text = "ГРОМКОСТЬ"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(440, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+max_value = 1.0
+step = 0.01
+value = 0.65
+
+[node name="VolumeValue" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.80, 0.82, 0.76, 1)
+theme_override_font_sizes/font_size = 18
+text = "65 %"
+horizontal_alignment = 2
+
+[node name="SensitivityCaption" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.67, 0.62, 1)
+theme_override_font_sizes/font_size = 18
+text = "ЧУВСТВИТЕЛЬНОСТЬ МЫШИ"
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(440, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+min_value = 0.3
+max_value = 3.0
+step = 0.1
+value = 1.0
+
+[node name="SensitivityValue" type="Label" parent="SettingsPanel/Center/Panel/Content/Grid"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.80, 0.82, 0.76, 1)
+theme_override_font_sizes/font_size = 18
+text = "1.0x"
+horizontal_alignment = 2
+
+[node name="Separator2" type="HSeparator" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+
+[node name="FullscreenCheck" type="CheckButton" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "ПОЛНОЭКРАННЫЙ РЕЖИМ"
+
+[node name="CrtCheck" type="CheckButton" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+button_pressed = true
+text = "ЭФФЕКТЫ КАМЕРЫ  //  CRT"
+
+[node name="Note" type="Label" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.43, 0.39, 1)
+theme_override_font_sizes/font_size = 13
+text = "Настройки монохрома и мыши применяются и внутри смены."
+
+[node name="Buttons" type="HBoxContainer" parent="SettingsPanel/Center/Panel/Content"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 12
+
+[node name="DefaultsButton" type="Button" parent="SettingsPanel/Center/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(210, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 18
+text = "СБРОСИТЬ"
+
+[node name="CloseSettingsButton" type="Button" parent="SettingsPanel/Center/Panel/Content/Buttons"]
+custom_minimum_size = Vector2(260, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 18
+text = "НАЗАД  [ESC]"
+
+[node name="ArchivePanel" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="ArchivePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.007, 0.006, 0.88)
+
+[node name="Center" type="CenterContainer" parent="ArchivePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ArchivePanel/Center"]
+custom_minimum_size = Vector2(1040, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="Content" type="VBoxContainer" parent="ArchivePanel/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="ArchivePanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.87, 0.81, 1)
+theme_override_font_sizes/font_size = 30
+text = "АРХИВ  //  ДЕЛО №04"
+
+[node name="Subtitle" type="Label" parent="ArchivePanel/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.48, 0.44, 1)
+theme_override_font_sizes/font_size = 13
+text = "ЭНЕРГОБЛОК №4, 03:47 — 04:17  //  СТАТУС: ЗАПИСЬ ПРОДОЛЖАЕТСЯ"
+
+[node name="Separator" type="HSeparator" parent="ArchivePanel/Center/Panel/Content"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="ArchivePanel/Center/Panel/Content"]
+custom_minimum_size = Vector2(0, 380)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.63, 0.66, 0.61, 1)
+theme_override_constants/line_separation = 7
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[color=#b3453b]03:47:12[/color]  Внешний контур обесточен. Резервные генераторы не вышли на режим.
+[color=#b3453b]03:49:40[/color]  Температура активной зоны растёт. В зале остался один оператор.
+[color=#b3453b]03:52:03[/color]  В канале связи записан голос. Он повторяет твою фамилию.
+[color=#b3453b]03:58:27[/color]  Камера 04 показывает движение в шлюзе. Шлюз заварен.
+[color=#b3453b]04:06:15[/color]  Датчики насчитали 36 человек. По журналу на смене — один.
+[color=#b3453b]04:17:32[/color]  Начинается запись.
+
+[color=#d9d6cc]УПРАВЛЕНИЕ[/color]
+WASD — движение      Мышь — обзор      Shift — курсор
+M — монохром      G — освещение      R — вернуться на позицию
+
+[color=#7f8c80]Совет: не доверяйте счётчику персонала.[/color]"
+scroll_active = false
+
+[node name="Separator2" type="HSeparator" parent="ArchivePanel/Center/Panel/Content"]
+layout_mode = 2
+
+[node name="CloseArchiveButton" type="Button" parent="ArchivePanel/Center/Panel/Content"]
+custom_minimum_size = Vector2(260, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 18
+text = "ЗАКРЫТЬ  [ESC]"
+
+[node name="BootOverlay" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="BootOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.006, 0.005, 0.98)
+
+[node name="Margin" type="MarginContainer" parent="BootOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="Content" type="VBoxContainer" parent="BootOverlay/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Log" type="RichTextLabel" parent="BootOverlay/Margin/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.60, 0.64, 0.59, 1)
+theme_override_constants/line_separation = 10
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+scroll_active = false
+
+[node name="Hint" type="Label" parent="BootOverlay/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.63, 0.66, 0.61, 1)
+theme_override_font_sizes/font_size = 15
+text = "НАЖМИТЕ ЛЮБУЮ КЛАВИШУ"
+horizontal_alignment = 2
+
+[node name="FadeOverlay" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Black" type="ColorRect" parent="FadeOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="FadeLabel" type="Label" parent="FadeOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.68, 0.70, 0.65, 1)
+theme_override_font_sizes/font_size = 24
+text = "СМЕНА НАЧИНАЕТСЯ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -3.0
+
+[node name="ClickPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -8.0
+max_polyphony = 4
+
+[node name="CRT" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="Copy" type="BackBufferCopy" parent="CRT"]
+copy_mode = 2
+
+[node name="Overlay" type="ColorRect" parent="CRT"]
+material = SubResource("ShaderMaterial_crt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

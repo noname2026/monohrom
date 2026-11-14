@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+const CFG = preload("res://game_settings.gd")
+
 signal world_lighting_toggle_requested
 
 @onready var camera: Camera3D = $Camera3D #11
@@ -11,8 +13,11 @@ signal world_lighting_toggle_requested
 @onready var strength_label: Label = $HUD/Top/Layout/Controls/Value
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var mouse_sensitivity := 1.0
+
 
 func _ready() -> void:
+	_load_user_settings()
 	toggle.toggled.connect(_on_toggle_toggled)
 	strength_slider.value_changed.connect(_on_strength_changed)
 	_on_strength_changed(strength_slider.value)
@@ -41,8 +46,8 @@ func _input(event: InputEvent) -> void:
 			get_viewport().gui_release_focus()
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.screen_relative.x * 0.0025)
-		camera.rotation.x = clampf(camera.rotation.x - event.screen_relative.y * 0.0025, -1.35, 1.35)
+		rotate_y(-event.screen_relative.x * 0.0025 * mouse_sensitivity)
+		camera.rotation.x = clampf(camera.rotation.x - event.screen_relative.y * 0.0025 * mouse_sensitivity, -1.35, 1.35)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -77,6 +82,16 @@ func _notification(what: int) -> void:
 
 func _exit_tree() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
+func _load_user_settings() -> void:
+	var config := CFG.load_file()
+	mouse_sensitivity = clampf(
+		float(config.get_value("controls", "mouse_sensitivity", 1.0)), 0.3, 3.0
+	)
+	strength_slider.set_value_no_signal(clampf(
+		float(config.get_value("video", "monochrome_strength", 1.0)), 0.0, 1.0
+	))
 
 
 func _on_toggle_toggled(enabled: bool) -> void:
